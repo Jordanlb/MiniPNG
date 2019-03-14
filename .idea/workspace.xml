@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="637ae6cd-636f-4572-862a-a0f229bb4e51" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/MiniPNG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Test.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -60,12 +59,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="717" />
+          <entry key="java" value="721" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="717" />
+          <entry key="JAVA" value="721" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -85,8 +84,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3043">
-              <caret line="179" column="5" lean-forward="true" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
+            <state relative-caret-position="537">
+              <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7255#7256#0" expanded="true" />
@@ -99,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/FileWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+            <state relative-caret-position="357">
+              <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -133,7 +132,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="601" />
     <option name="y" value="-4" />
     <option name="width" value="928" />
@@ -254,12 +253,12 @@
       <updated>1552548523610</updated>
       <workItem from="1552548529814" duration="13447000" />
       <workItem from="1552590548131" duration="2358000" />
-      <workItem from="1552602851324" duration="660000" />
+      <workItem from="1552602851324" duration="1725000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16465000" />
+    <option name="totallyTimeSpent" value="17530000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -291,7 +290,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.47424892" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.22961374" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32985386" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -336,15 +335,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/FileWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+        <state relative-caret-position="357">
+          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3043">
-          <caret line="179" column="5" lean-forward="true" selection-start-line="179" selection-start-column="5" selection-end-line="179" selection-end-column="5" />
+        <state relative-caret-position="537">
+          <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#7255#7256#0" expanded="true" />

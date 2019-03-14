@@ -174,7 +174,7 @@ public class Test {
     private static boolean isMiniPNG(byte[] bytes){
         final byte[] temp = new byte[8];
         String sb = "Mini-PNG";
-        System.arraycopy(bytes, 0, bytes, 0,8);
+        System.arraycopy(bytes, 0, temp, 0,8);
         String test = new String(temp);
             return test.contentEquals(sb);
     }
