@@ -42,7 +42,7 @@ public class Test {
     public static void main(String[] args){
         final byte[] data;
         if(args.length<1) {
-            System.out.println("Mauvaise utilisation programme, utiliser de la forme : java test.Test filename");
+            System.out.println("Mauvaise utilisation programme, utiliser de la forme : java -cp ./out/test.Test filename");
         }
         data = readBytesFromFile(args[0]);
         traiteData(data.clone());
@@ -174,15 +174,9 @@ public class Test {
     private static boolean isMiniPNG(byte[] bytes){
         final byte[] temp = new byte[8];
         String sb = "Mini-PNG";
-        for(int i=0; i<8; i++){
-            temp[i] = bytes[i];
-        }
+        System.arraycopy(bytes, 0, bytes, 0,8);
         String test = new String(temp);
-        if(test.contentEquals(sb)) {
-
-            return true;
-        }
-        return false;
+            return test.contentEquals(sb);
     }
 
     private static int byteToInt(byte b){
