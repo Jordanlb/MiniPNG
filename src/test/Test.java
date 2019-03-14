@@ -45,7 +45,7 @@ public class Test {
             System.out.println("Mauvaise utilisation programme, utiliser de la forme : java test.Test filename");
         }
         data = readBytesFromFile(args[0]);
-        traiteData(data);
+        traiteData(data.clone());
     }
 
     private static byte[] readBytesFromFile(String filename) {
@@ -94,78 +94,95 @@ public class Test {
         long hauteur = 0;
         long largeur = 0;
 
-
-        while (i < data.length) {
-            if (byteToInt(data[i]) == 72) {
-                final long longueurBloc = (data[++i] << 24 | data[++i] << 16 | data[++i] << 8 | data[++i]) & 0xFFFFFFFFL;  // ATTENTION incrementation de i : faire avec i+1, i+2 et incrementer i ) la fin de longueurBloc + 4;
-                if (longueurBloc == 9) {
-                    largeur = (data[++i] << 24 | data[++i] << 16 | data[++i] << 8 | data[++i]) & 0xFFFFFFFFL;
-                    hauteur = (data[++i] << 24 | data[++i] << 16 | data[++i] << 8 | data[++i]) & 0xFFFFFFFFL;
-                    final int typePixel = data[++i] & 0xFF;
-                    System.out.println("Largeur : " + largeur);
-                    System.out.println("Hauteur : " + hauteur);
-                    final String messagetypePixel;
-                    switch (typePixel) {
-                        case 0:
-                            messagetypePixel = "0 (noir et blanc)";
-                            break;
-                        case 1:
-                            messagetypePixel = "1 (niveaux de gris)";
-                            break;
-                        case 2:
-                            messagetypePixel = "2 (palette)";
-                            break;
-                        case 3:
-                            messagetypePixel = "3 (couleurs 24bits)";
-                            break;
-                        default:
-                            messagetypePixel = "";
-                    }
-                    System.out.println("Type de pixel : " + messagetypePixel);
-                } else {
-                    System.out.println("longueur du header erroné, vérifier le fichier");
-                }
-                foundHeader = true;
-
-
-            } else if (byteToInt(data[i]) == 67) {
-                final long longueurBloc = ((data[++i] << 24) | (data[++i] << 16) | (data[++i] << 8) | data[++i]) & 0xFFFFFFFFL;
-                StringBuilder commentaire = new StringBuilder((int) longueurBloc + 2); // +2 pour les guillemets
-                commentaire.append('"');
-                for (int k = 1; k <= longueurBloc; k++) {
-                    commentaire.append(Character.toChars(data[++i] & 0xFF));
-                }
-                commentaire.append('"');
-                System.out.println(commentaire);
-
-
-            } else if (byteToInt(data[i]) == 68) {
-                final long longueurBloc = ((data[++i] << 24) | (data[++i] << 16) | (data[++i] << 8) | data[++i]) & 0xFFFFFFFFL;
-                StringBuilder donneesBinaireImage = new StringBuilder();
-                for (int k = 1; k <= longueurBloc; k++) {
-                    donneesBinaireImage.append(String.format("%8s", Integer.toBinaryString(data[++i] & 0xFF)).replace(' ', '0'));
-                }
-                for (int k = 1; k <= hauteur; k++) {
-                    String ligneDonneesBinaireImage = donneesBinaireImage.substring(k * Math.toIntExact(largeur) - Math.toIntExact(largeur), k * Math.toIntExact(largeur));
-                    StringBuilder ligneImage = new StringBuilder();
-                    for (int l = 0; l < ligneDonneesBinaireImage.length(); l++) {
-                        if ('1' == ligneDonneesBinaireImage.charAt(l)) {// == car diff de char
-                            ligneImage.append(" ");
-                        } else if ('0' == ligneDonneesBinaireImage.charAt(l)) {
-                            ligneImage.append("X");
+        if(isMiniPNG(data)){
+            while (i < data.length) {
+                if (byteToInt(data[i]) == 72) {
+                    final long longueurBloc = (data[++i] << 24 | data[++i] << 16 | data[++i] << 8 | data[++i]) & 0xFFFFFFFFL;  // ATTENTION incrementation de i : faire avec i+1, i+2 et incrementer i ) la fin de longueurBloc + 4;
+                    if (longueurBloc == 9) {
+                        largeur = (data[++i] << 24 | data[++i] << 16 | data[++i] << 8 | data[++i]) & 0xFFFFFFFFL;
+                        hauteur = (data[++i] << 24 | data[++i] << 16 | data[++i] << 8 | data[++i]) & 0xFFFFFFFFL;
+                        final int typePixel = data[++i] & 0xFF;
+                        System.out.println("Largeur : " + largeur);
+                        System.out.println("Hauteur : " + hauteur);
+                        final String messagetypePixel;
+                        switch (typePixel) {
+                            case 0:
+                                messagetypePixel = "0 (noir et blanc)";
+                                break;
+                            case 1:
+                                messagetypePixel = "1 (niveaux de gris)";
+                                break;
+                            case 2:
+                                messagetypePixel = "2 (palette)";
+                                break;
+                            case 3:
+                                messagetypePixel = "3 (couleurs 24bits)";
+                                break;
+                            default:
+                                messagetypePixel = "";
                         }
+                        System.out.println("Type de pixel : " + messagetypePixel);
+                    } else {
+                        System.out.println("longueur du header erroné, vérifier le fichier");
                     }
-                    System.out.println(ligneImage);
+                    foundHeader = true;
+
+
+                } else if (byteToInt(data[i]) == 67) {
+                    final long longueurBloc = ((data[++i] << 24) | (data[++i] << 16) | (data[++i] << 8) | data[++i]) & 0xFFFFFFFFL;
+                    StringBuffer commentaire = new StringBuffer((int) longueurBloc + 2); // +2 pour les guillemets
+                    commentaire.append('"');
+                    for (int k = 1; k <= longueurBloc; k++) {
+                        commentaire.append(Character.toChars(data[++i] & 0xFF));
+                    }
+                    commentaire.append('"');
+                    System.out.println(commentaire);
+
+
+                } else if (byteToInt(data[i]) == 68) {
+                    final long longueurBloc = ((data[++i] << 24) | (data[++i] << 16) | (data[++i] << 8) | data[++i]) & 0xFFFFFFFFL;
+                    StringBuffer donneesBinaireImage = new StringBuffer();
+                    for (int k = 1; k <= longueurBloc; k++) {
+                        donneesBinaireImage.append(String.format("%8s", Integer.toBinaryString(data[++i] & 0xFF)).replace(' ', '0'));
+                    }
+                    for (int k = 1; k <= hauteur; k++) {
+                        String ligneDonneesBinaireImage = donneesBinaireImage.substring(k * Math.toIntExact(largeur) - Math.toIntExact(largeur), k * Math.toIntExact(largeur));
+                        StringBuffer ligneImage = new StringBuffer();
+                        for (int l = 0; l < ligneDonneesBinaireImage.length(); l++) {
+                            if ('1' == ligneDonneesBinaireImage.charAt(l)) {// == car diff de char
+                                ligneImage.append(" ");
+                            } else if ('0' == ligneDonneesBinaireImage.charAt(l)) {
+                                ligneImage.append("X");
+                            }
+                        }
+                        System.out.println(ligneImage);
+                    }
                 }
-            }
-            else {
-                if(!foundHeader){
-                    System.out.println("Header not found");
+                else {
+                    if(!foundHeader){
+                        System.out.println("Header not found");
+                    }
+                    System.out.println("Aucun bloc détecté");
                 }
-                System.out.println("Aucun bloc détecté");
+                i++;
             }
-            i++;
+        } else{
+            System.out.println("Mauvais format d'image");
         }
+    }
+
+    private static boolean isMiniPNG(byte[] bytes){
+        final byte[] temp = new byte[8];
+        String sb = "Mini-PNG";
+        for(int i=0; i<8; i++){
+            temp[i] = bytes[i];
+        }
+        String test = new String(temp);
+        if(test.contentEquals(sb)) {
+
+            return true;
+        }
+        return false;
     }
 
     private static int byteToInt(byte b){

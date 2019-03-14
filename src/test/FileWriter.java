@@ -11,7 +11,7 @@ final class FileWriter {
         DataOutputStream dos =
                 new DataOutputStream(new BufferedOutputStream
                         (new FileOutputStream("OutputFile.txt")));
-        dos.write(letter);
+        dos.write(letter.clone());
         dos.close();
         } catch (FileNotFoundException e){
             System.out.println("File not found : " + e.getMessage());
