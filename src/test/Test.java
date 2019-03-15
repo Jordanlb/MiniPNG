@@ -42,10 +42,10 @@ public class Test {
     public static void main(String[] args){
         final byte[] data;
         if(args.length<1) {
-            System.out.println("Mauvaise utilisation programme, utiliser de la forme : java -cp ./out/test.Test filename");
+            System.out.println("Mauvaise utilisation programme, utiliser de la forme : java -cp ./out/production/MiniPNG test.Test filename");
         }
         data = readBytesFromFile(args[0]);
-        String[] temp = traiteData(data.clone());;
+        String[] temp = traiteData(data);;
         afficheData(temp);
     }
 
@@ -90,7 +90,6 @@ public class Test {
 
     // Revoir utilisation des blocs, utilisation naive de A.mp, si les blocs sont dans l'ordre. Creer des listes de bloc C, D et H dans lesquels stocker ces blocs -> On accepte que Header et un bloc D
     private static String[] traiteData(byte[] data) {
-        String[] res = new String[5];
         StringBuffer donneesBinaireImage = new StringBuffer();
         StringBuffer commentaire = new StringBuffer();
         int i = 8; // Commence par Mini-PNG
@@ -110,6 +109,7 @@ public class Test {
 
                     } else {
                         System.out.println("longueur du header erroné, vérifier le fichier");
+                        System.exit(0);
                     }
                     foundHeader = true;
 
@@ -129,15 +129,27 @@ public class Test {
                 }
 
                 else {
-                    if(!foundHeader){
-                        System.out.println("Header not found");
-                    }
-                    System.out.println("Aucun bloc détecté");
+                    System.out.println("Aucun bloc détecté ou fichier mal formaté");
+                    System.exit(0);
                 }
                 i++;
             }
         } else{
             System.out.println("Mauvais format d'image");
+            System.exit(0);
+        }
+        if(donneesBinaireImage.length() == 0){
+            System.out.println("Missing data");
+            System.exit(0);
+        }
+
+        if(!foundHeader){
+            System.out.println("Header not found");
+            System.exit(0);
+        }
+        if(donneesBinaireImage.length() < Math.toIntExact(Math.multiplyExact(largeur, hauteur))){
+            System.out.println("Les donnees ne correspondent pas à la taille de l'image");
+            System.exit(0);
         }
         return new String[]{Long.toUnsignedString(hauteur), Long.toUnsignedString(largeur), Integer.toString(typePixel),  commentaire.toString(), donneesBinaireImage.toString()};
     }
@@ -159,7 +171,7 @@ public class Test {
         }
         System.out.println("Largeur : " + largeur);
         System.out.println("Hauteur : " + hauteur);
-        final String messagetypePixel;
+        String messagetypePixel;
         switch (typePixel) {
             case 0:
                 messagetypePixel = "0 (noir et blanc)";
@@ -195,7 +207,7 @@ public class Test {
     }
 
     private static boolean isMiniPNG(byte[] bytes){
-        final byte[] temp = new byte[8];
+        byte[] temp = new byte[8];
         String sb = "Mini-PNG";
         System.arraycopy(bytes, 0, temp, 0,8);
         String test = new String(temp);
