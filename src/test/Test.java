@@ -147,7 +147,9 @@ public class Test {
             System.out.println("Header not found");
             System.exit(0);
         }
-        if(donneesBinaireImage.length() < Math.toIntExact(Math.multiplyExact(largeur, hauteur))){
+        int dim = Math.toIntExact(Math.multiplyExact(largeur, hauteur));
+        if(donneesBinaireImage.length() < dim ||
+                donneesBinaireImage.length() > (dim) + (8- dim%8)){
             System.out.println("Les donnees ne correspondent pas à la taille de l'image");
             System.exit(0);
         }
