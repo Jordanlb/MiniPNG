@@ -118,6 +118,7 @@ public class Test {
                     for (int k = 1; k <= longueurBloc; k++) {
                         commentaire.append(Character.toChars(data[++i] & 0xFF));
                     }
+                    commentaire.append('\n');
 
 
                 } else if (byteToInt(data[i]) == 68) {
@@ -125,8 +126,8 @@ public class Test {
                     for (int k = 1; k <= longueurBloc; k++) {
                         donneesBinaireImage.append(String.format("%8s", Integer.toBinaryString(data[++i] & 0xFF)).replace(' ', '0'));
                     }
-
                 }
+
                 else {
                     if(!foundHeader){
                         System.out.println("Header not found");
@@ -149,9 +150,9 @@ public class Test {
         String commentaire = arg[3];
 
         try {
-            typePixel = Integer.parseInt(arg[2]);
             hauteur = Integer.parseInt(arg[0]);
             largeur = Integer.parseInt(arg[1]);
+            typePixel = Integer.parseInt(arg[2]);
         }catch(NumberFormatException nfe){
             System.out.println("Type de pixel, hauteur et largeur doivent être des entiers");
             System.exit(0);
@@ -191,7 +192,6 @@ public class Test {
         }
         System.out.println("Commentaire : \n" + commentaire);
         System.out.println(ligneImage);
-
     }
 
     private static boolean isMiniPNG(byte[] bytes){
